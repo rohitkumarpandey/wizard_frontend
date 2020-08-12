@@ -1,0 +1,32 @@
+
+.homecontainer{
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    overflow-y: hidden;background-color: #1F2833;
+}
+
+nav{
+    bottom: 0;
+    margin-bottom: 0;
+    position: sticky;
+    border: 0;
+    top: 0;
+    z-index: 1;
+    background-color: #0B0C10;
+}
+.navbar-brand{
+    font-weight: bold!important;
+    color: #66FCF1!important;
+}
+button span{
+    background-color:  #66FCF1!important;
+}
+button:hover, button:active, button:checked{
+    background-color: transparent!important;
+    outline: none!important;
+}
+a{
+    
+    color: #fff!important;
+}
