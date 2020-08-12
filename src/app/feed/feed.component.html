@@ -1,0 +1,119 @@
+<ngx-spinner *ngIf="isLoading"></ngx-spinner>
+<!-- feed container -->
+  
+<div class="feed col-md-5 col-md-offset-3" >
+ 
+    <div *ngIf="isMobile" class="createpostmobile  container-fluid" (click)="openCreatePostModal()">Write Something here...</div>
+    <div
+    class="search-results"
+    infiniteScroll
+    [scrollWindow]="false"
+    [infiniteScrollDistance] = "2"
+    [infiniteScrollThrottle] = "50"
+    (scrolled)="onScroll()"
+    > 
+  
+    <div class="post" *ngFor= " let post of posts">
+      <div class="container-fluid" style="padding: 0;">
+      <label style=" margin-left:10px; margin-top: 10px; font-size: 18px;">{{post.username}} &nbsp;</label>
+      <label style="color: grey; font-size: 14px; font-weight: lighter;" *ngIf="post.userAbout!=null">| {{post.userAbout}}</label>
+      <button mat-icon-button style="float: right;" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item *ngIf="userid != post.userid">
+          <mat-icon>report</mat-icon>
+          <span>Report User</span>
+        </button>
+        <button mat-menu-item *ngIf="userid === post.userid">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+        </mat-menu>
+    </div>
+    <label style="margin-left: 10px; color: grey;" *ngIf="post.postType!=null">{{post.postType}} </label>
+<div class="postContent">
+      <textarea rows="7" readonly>{{post.post}}</textarea>
+    
+        <div class="commentdiv">
+          
+          
+        <div class="commentCountDiv">{{post.comments.length}} comment<span *ngIf="post.comments.length > 1">s</span></div>
+        <div class="commentBox" (click)="writeComment(post._id)" style="cursor: pointer;">Write comment here...</div>
+        <p style="margin-left: 5px; color: grey;">{{post.postedAt | date : 'short'}}</p>
+      </div>
+    </div>
+    </div>
+    <div class="loadSpinner" style="position: relative;" [ngStyle]="{'margin-bottom' : isMobile ? '90px' : '20px'}" >
+      <ngx-spinner
+      bdOpacity = .9
+      bdColor = ""
+      size = "default"
+      color ="#000"
+      type="ball-pulse-sync"
+      [fullScreen] = "false">
+  </ngx-spinner>
+    <p *ngIf="!notEmptyPost" style="font-weight: lighter; color: gray; opacity: .5;">You have seen all</p>
+    </div>
+  </div>
+  
+    
+</div>
+<div class="user col-md-2 col-md-offset-1">
+    <div class="shortProfileName container-fluid">
+      <img src="assets/wizard_wallpaper.jpg" class="img-circle">
+      <strong>        {{username}}</strong>
+    </div>
+    <div class="shortProfileDetails container-fluid">
+      <p style="cursor: pointer;" (click)="openCreatePostModal()">Create Post</p>
+      <p>My Posts</p>
+      <p>Total Posts : <span style="font-size: large; font-weight: bold; color: royalblue;">{{totalPosts}}</span></p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <strong style="color: white;">Going to post a..</strong>
+        <form [formGroup]="postForm">
+        <div id= "choosePostType" style="height: 75vh; margin-top: 15px;">
+        
+        <table  class="table">
+          <tbody>
+            <tr *ngFor="let i of postTypes; let indx = index ">
+              <td *ngIf="indx%2===0" (click)="seclectedPostType(postTypes[indx])"><div>{{postTypes[indx]}}</div></td>
+              <td *ngIf="indx%2===0 && indx + 1 < postTypes.length" (click)="seclectedPostType(postTypes[indx+1])"><div>{{postTypes[indx+1]}}</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     
+        <div id="writePostContent" style="width: 100%; height: 70vh;">
+          <div class="postingAs">
+            <select required  class="form-control" formControlName = "username" >
+              <option selected="selected" disabled value="">Posting as..</option>
+              <option>{{username}}</option>
+              <option>Anonymous</option>
+            </select>
+          </div>
+        <textarea  rows="13" formControlName="post" placeholder="Write your post here..." autofocus style="margin-top: 50px; font-size: 14px;"></textarea>
+      </div>
+    </form>
+      </div>
+    
+      <div class="modal-footer">
+        <button class="btn btn-default" *ngIf= "prevBtn" (click)="previous()">Previous</button>
+        <button class="btn btn-primary" (click)="prevent($event)">Next</button>
+      </div>
+    </div>
+
+  </div>
+</div>

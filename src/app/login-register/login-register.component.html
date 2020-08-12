@@ -1,0 +1,107 @@
+<div id="background" ></div>
+<div class="form-div col-md-3 col-md-offset-1 col-lg-3 col-sm-4 col-xs-10 col-xs-offset-1">
+<div class="option container-fluid">
+    <a href="#loginForm" ><button class="activeBtn"> Login</button></a>
+    <a href="#signupForm"><button>SignUp</button></a>
+</div>
+<div class="form-element">
+<div id="loginForm" class="container-fluid">
+    <div class="container-fluid">
+        <label style="font-size: small;">Login as:&nbsp;</label>
+        <mat-radio-group aria-label="Select an option">
+    <mat-radio-button value="admin">Admin</mat-radio-button>
+    <mat-radio-button checked value="user">User</mat-radio-button>
+</mat-radio-group>
+    </div>
+    
+<form [formGroup]="loginForm">
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="email" formControlName="emailid" class="form-control" placeholder="Enter email here...">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName = "password" class="form-control" placeholder="Enter password here...">
+    </div>
+    <div class="form-group" *ngIf="false">
+        <label>PIN:</label>
+        <input type="text" class="form-control" placeholder="Enter PIN here...">
+    </div>
+    <br/>
+    <div class="form-group">
+        
+        <button class="btn btn-primary btn-block" (click)="login()" [disabled]= "loginForm.invalid">Login</button>
+    </div>
+    <div class="form-group">
+        <strong *ngIf="errorMessage!=null">{{errorMessage}}</strong>
+    </div>
+</form>
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-pulse-sync"
+fullscreen = false
+></ngx-spinner>
+</div>
+<div id="signupForm" class="container-fluid">
+    <div  class="userType container-fluid">
+        <label>Sign Up as:&nbsp;</label>
+        <mat-radio-group aria-label="Select an option">
+    <mat-radio-button value="signadmin">Admin</mat-radio-button>
+    <mat-radio-button checked value="signuser">User</mat-radio-button>
+</mat-radio-group>
+    </div>
+    
+<form [formGroup]="registrationForm">
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="email" formControlName="emailid" class="form-control" placeholder="Enter email here...">
+    </div>
+    <!-- <div class="form-group" style="text-align: right;" ng >
+        
+        <button class="btn btn-primary">Initiate Verification</button>
+    </div> -->
+    <div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control" placeholder="Enter password here...">
+    </div>
+    <!-- <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" class="form-control" placeholder="Enter above password here...">
+    </div>
+    <div class="form-group">
+        <label>PIN:</label>
+        <input type="text" class="form-control" placeholder="Enter PIN here...">
+    </div> -->
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="password" formControlName="username" class="form-control" placeholder="My name is...">
+    </div>
+    <div class="form-group">
+        <label>About:</label>
+        <input type="text" class="form-control" formControlName="about" placeholder="I am a...">
+    </div> 
+    <br/>
+    <div class="form-group">
+        
+        <button class="btn btn-primary btn-block" [disabled]="registrationForm.invalid" (click)="register()">SignUp</button>
+    </div>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+
+
+<div class="intro-div">
+    <p>Wizard</p>
+    <p>
+        Welcome to Wizard.<br/>At Wizard one can post or ask anything without revealing their identity.
+        <br/>
+        Lets express ourself.
+    </p>
+</div>
