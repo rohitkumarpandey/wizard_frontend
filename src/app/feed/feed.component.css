@@ -3,6 +3,11 @@
     .createpostmobile{
         visibility: visible!important;
     }
+    .showCommentDiv{
+        left: 0;
+
+        width: 100%!important;
+    }
 }
 
 
@@ -46,6 +51,18 @@
 .postContent{
     padding: 10px;
 }
+.postDescription{
+    outline: none;
+    border: 0;
+    padding-top: 0;
+    padding-left: 12px;
+    width: 100%;
+    color: black;
+    font-weight: 500;
+    min-height: 150px;
+    line-height: 1.8em;
+    text-align: left;
+}
 textarea{
     outline: none;
     border: 0;
@@ -80,6 +97,45 @@ textarea{
     background-color: white;
     border-radius: 40px;
     color: grey;
+}
+
+.showCommentDiv{
+    width: 95%;
+    height : 0vh;
+    background-color:white;
+    position: absolute;
+    bottom: 0;
+    border-radius: 10px 10px 0 0;
+
+}
+.closeCommentDiv{
+    height: 5vh;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    background-color: white;
+}
+.othersComment{
+    width: 100%;
+    height: 65vh;
+    overflow-y: scroll;
+    padding: 8px;
+    background-color: white;
+}
+.writtenComment{
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    min-height: 50px;
+}
+.writeCommentDiv{
+    width: 100%;
+    padding: 5px 0 0 0;
+    height: max-content;
+}
+.writeCommentDiv textarea{
+    border: 2px; width: 87%; float: left; resize: none;
+    background-color: white;
 }
 
 .loadSpinner{

@@ -18,7 +18,7 @@ export class LoginRegisterComponent implements OnInit {
   constructor(private router : Router, private spinner : NgxSpinnerService, private fb : FormBuilder,
      private service : LoginRegisterService, private authService : AuthService) { 
        this.loginForm = this.fb.group({
-         emailid : ['rohitpandey5256934@g.com', [Validators.required, Validators.email]],
+         emailid : ['rohit@gmail.com', [Validators.required, Validators.email]],
          password : ['login', [Validators.required]],
          securitypin : ['']
        });

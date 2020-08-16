@@ -26,6 +26,9 @@ export class FeedComponent implements OnInit {
   postType : String;
   userid : String;
   isMobile : Boolean;
+  commentForm : FormGroup;
+  postid : String;
+  progressBar : Boolean = false;
   constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private matBottomSheet : MatBottomSheet, private service : FeedService) { 
     this.username = this.authService.getUsername();
     this.userid = this.authService.getUserId();
@@ -36,15 +39,26 @@ export class FeedComponent implements OnInit {
       postType : [''],
       post : ['', [Validators.required]]
     });
+    this.commentForm = this.fb.group({
+      userid : [''],
+      username : [''],
+      userAbout : [''],
+      commentDesc : ['', [Validators.required]]
+      });
   }
 
   ngOnInit() {
+    $('.commentBox').on('click', function(){
+      console.log("hii");
+    })
     this.loadInitialData();
     if(screen.width > 610){
       this.isMobile = false;
     }else{
       this.isMobile = true;
     }
+
+   
     
   }
   @HostListener('window:resize', ['$event'])
@@ -65,9 +79,8 @@ export class FeedComponent implements OnInit {
           this.posts = res.posts;
         }
       }).then(()=>{
-        this.isLoading = false;
+        
         this.loadUserData();
-        this.spinner.hide();
       })
 
   }
@@ -77,6 +90,9 @@ export class FeedComponent implements OnInit {
       if(res.success){
         this.userAbout = res.user.about;
         this.totalPosts = res.user.posts.length;
+        this.isLoading = false;
+        
+        this.spinner.hide();
       }
     })
   }
@@ -107,15 +123,51 @@ export class FeedComponent implements OnInit {
     }
   }
 
-  writeComment(postid){
+  showComments(index, postid){
+    this.postid = postid;
+    $('.othersComment').scrollTop(-3000);
+    $('.showCommentDiv').animate({height : '85vh'}, 500);
+
     this.comments = [];
+    this.progressBar = true;
     this.posts.forEach(post=>{
      if(post._id == postid){
 
-       this.service.setComments(post._id, post.comments);
+       this.comments = post.comments;
      }
     });
-    this.matBottomSheet.open(BottomSheetCommentBox); 
+    this.progressBar = false;
+  }
+  addComment(){
+    this.progressBar = true;
+    $('writeCommentDiv textArea').prop('readonly', true);
+    this.commentForm.value.userid = this.userid;
+    this.commentForm.value.username = this.username;
+    this.commentForm.value.userAbout = this.userAbout;
+    console.log(this.userAbout);
+    this.service.addComment(this.userid, this.postid, this.commentForm.value)
+    .then((res)=>{
+      if(res.success){
+        this.comments = this.comments.concat([res.comment]);
+        this.posts.forEach(post=>{
+          if(post._id == this.postid){
+            post.comments = this.comments;
+            this.cdr.detectChanges();
+          }
+        })
+      }
+    }).then(()=>{
+      this.commentForm.reset();
+      this.cdr.detectChanges();
+      this.progressBar = false;
+      $('writeCommentDiv textArea').prop('readonly', false);
+    })
+    
+    
+  }
+
+  closeCommentBox(){
+    $('.showCommentDiv').animate({height : 0}, 500);
   }
 
   //open post modal

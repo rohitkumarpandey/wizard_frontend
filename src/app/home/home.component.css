@@ -17,16 +17,22 @@ nav{
 }
 .navbar-brand{
     font-weight: bold!important;
-    color: #66FCF1!important;
+    color: #fff!important;
 }
-button span{
-    background-color:  #66FCF1!important;
-}
+
 button:hover, button:active, button:checked{
     background-color: transparent!important;
     outline: none!important;
 }
-a{
+#myNavbar a{
     
     color: #fff!important;
+    font-family: 'Titillium Web', sans-serif!important;
+    padding: 25px!important;
+    font-size: medium;
+    cursor: pointer;
+}
+
+#myNavbar a:hover { 
+    background-color: #1F2833!important;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { AuthService } from '../services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit {
   myPosts = [];
   about : String;
 
-  constructor(private service : ProfileService, private authService : AuthService) { 
+  constructor(private service : ProfileService, private authService : AuthService, private spinner : NgxSpinnerService) { 
    this.username = this.authService.getUsername();
    
   }
@@ -22,6 +23,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfile(){
+    this.spinner.show();
       this.service.getProfile(this.authService.getUserId())
       .then((res)=>{
         if(res.success){
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit {
             this.myPosts = this.myPosts.concat(res.user.posts);
         }
       })
+      .then(()=>this.spinner.hide())
   }
 
 }

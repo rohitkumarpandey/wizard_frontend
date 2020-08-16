@@ -3,6 +3,9 @@
     .intro-div{
         visibility: hidden!important;
     }
+    h1{
+        visibility: visible!important;
+    }
 }
 
 #background{    
@@ -14,6 +17,12 @@
     margin: 0!important;
     padding: 0;
     
+}
+h1{
+    visibility: hidden;
+    color: #45A29E;
+    text-align: center;
+    font-weight: bolder;
 }
 .form-div{
     background-color: #1F2833;
