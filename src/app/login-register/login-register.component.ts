@@ -43,6 +43,7 @@ export class LoginRegisterComponent implements OnInit {
   
 
   login(){
+   
   this.spinner.show();
     this.service.login(this.loginForm.value)
     .then((res)=>{

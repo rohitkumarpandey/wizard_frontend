@@ -62,6 +62,15 @@ export class FeedService {
     })
   }
 
+  //delete post
+  deletePost(uid, postid) : Promise<any>{
+    return this.http.delete(environment.userAPIUrl+'/deletePost/'+uid+'/'+postid)
+    .toPromise()
+    .then((res)=>{
+      return res;
+    })
+  } 
+
  
   
 }

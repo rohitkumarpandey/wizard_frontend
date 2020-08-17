@@ -33,7 +33,6 @@ import { HomeComponent } from './home/home.component';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { ProfileComponent } from './profile/profile.component';
 import { FeedComponent } from './feed/feed.component';
-import { BottomSheetCommentBox } from './feed/feed.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
@@ -44,8 +43,7 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     LoginRegisterComponent,
     HomeComponent,
     ProfileComponent,
-    FeedComponent,
-    BottomSheetCommentBox
+    FeedComponent
   ],
  
   imports: [
@@ -77,8 +75,6 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     NgxSpinnerModule,
     InfiniteScrollModule
   ],
-  entryComponents : [BottomSheetCommentBox],
-  exports : [BottomSheetCommentBox],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}, NgxSpinnerService],
   bootstrap: [AppComponent]

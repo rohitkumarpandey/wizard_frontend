@@ -9,7 +9,7 @@
 }
 
 #background{    
-    height: 100vh;
+    height: 100%;
     position: relative;
     width: 100%;
     overflow-y: hidden;
@@ -23,6 +23,8 @@ h1{
     color: #45A29E;
     text-align: center;
     font-weight: bolder;
+    font-size: 35pt;
+    letter-spacing: .2em;
 }
 .form-div{
     background-color: #1F2833;

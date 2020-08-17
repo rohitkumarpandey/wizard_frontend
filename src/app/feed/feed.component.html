@@ -25,7 +25,11 @@
           <mat-icon>report</mat-icon>
           <span>Report User</span>
         </button>
-        <button mat-menu-item *ngIf="userid === post.userid">
+        <button mat-menu-item *ngIf="userid === post.userid" (click)="editPost()"> 
+          <mat-icon>edit</mat-icon>
+          <span>Edit Post</span>
+        </button>
+        <button mat-menu-item *ngIf="userid === post.userid" (click)= "deletePost(post._id, indx)">
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>
@@ -37,7 +41,7 @@
 
   
       <!-- <textarea rows="7" readonly>{{post.post}}</textarea> -->
-      <p>{{post.post}}</p>
+      <p >{{post.post}}</p>
     </div>
     
         <div class="commentdiv">
@@ -79,10 +83,10 @@
     </div>
     <div class="writeCommentDiv">
       <form [formGroup]="commentForm">
-      <textarea placeholder="Write your comment here..." rows="1" formControlName="commentDesc"></textarea>
+      <textarea placeholder="Write your comment here..." rows="2" formControlName="commentDesc"></textarea>
     </form>
     </div>
-    <label *ngIf="commentForm.valid" style="cursor: pointer; margin-left : 8px; margin-top: 10px; color: royalblue; float: left;" (click)="addComment()">Send</label>
+    <label *ngIf="commentForm.valid" style="cursor: pointer; margin-left : 8px; margin-top: 20px;bottom : 0; color: royalblue; float: left;" (click)="addComment()">Send</label>
 </div>
 </div>
 <div class="user col-md-2 col-md-offset-1">

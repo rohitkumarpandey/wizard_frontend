@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material';
 import { FeedService } from './feed.service';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +20,7 @@ export class FeedComponent implements OnInit {
   postForm : FormGroup;
   postTypes = ["Story", "Confession", "Experience", "Review", "Question", "Horror", "Plan", "Interviews"];
   userAbout : String;
-  totalPosts : number;
+  totalPosts : number = 0;
   prevBtn : Boolean = false;
   postType : String;
   userid : String;
@@ -29,7 +28,7 @@ export class FeedComponent implements OnInit {
   commentForm : FormGroup;
   postid : String;
   progressBar : Boolean = false;
-  constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private matBottomSheet : MatBottomSheet, private service : FeedService) { 
+  constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private service : FeedService) { 
     this.username = this.authService.getUsername();
     this.userid = this.authService.getUserId();
     this.postForm = this.fb.group({
@@ -48,9 +47,7 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('.commentBox').on('click', function(){
-      console.log("hii");
-    })
+   
     this.loadInitialData();
     if(screen.width > 610){
       this.isMobile = false;
@@ -91,7 +88,6 @@ export class FeedComponent implements OnInit {
         this.userAbout = res.user.about;
         this.totalPosts = res.user.posts.length;
         this.isLoading = false;
-        
         this.spinner.hide();
       }
     })
@@ -126,7 +122,7 @@ export class FeedComponent implements OnInit {
   showComments(index, postid){
     this.postid = postid;
     $('.othersComment').scrollTop(-3000);
-    $('.showCommentDiv').animate({height : '85vh'}, 500);
+    $('.showCommentDiv').animate({height : '85%'}, 500);
 
     this.comments = [];
     this.progressBar = true;
@@ -144,7 +140,6 @@ export class FeedComponent implements OnInit {
     this.commentForm.value.userid = this.userid;
     this.commentForm.value.username = this.username;
     this.commentForm.value.userAbout = this.userAbout;
-    console.log(this.userAbout);
     this.service.addComment(this.userid, this.postid, this.commentForm.value)
     .then((res)=>{
       if(res.success){
@@ -235,53 +230,21 @@ export class FeedComponent implements OnInit {
     this.prevBtn = false;
   }
 
+
+  //delete post
+  deletePost(postid, postindex){
+    this.service.deletePost(this.userid, postid)
+    .then((res)=>{
+      if(res.success){
+        this.posts.splice(postindex, 1);
+        this.cdr.detectChanges();
+        this.totalPosts--;
+
+      }
+    })
+  }
+
+
  
 }
 
-
-@Component({
-  selector: 'bottom-sheet-overview-example-sheet',
-  templateUrl: 'bottom-sheet-overview-example.html',
-  
-  styleUrls: ['./bottom-sheet.css']
-})
-export class BottomSheetCommentBox {
-
-  postid;
-  comments = [];
-  userid : String = null;
-  username : String = null;
-  commentForm : FormGroup;
-
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetCommentBox>, private service : FeedService,
-    private authService : AuthService, private fb : FormBuilder, private cdr : ChangeDetectorRef) {
-      this.postid = this.service.getComments().postid;
-    this.comments = this.service.getComments().comments;
-    this.userid = this.authService.getUserId();
-    this.username = this.authService.getUsername();
-    this.commentForm = this.fb.group({
-      userid : [''],
-      username : [''],
-      commentDesc : ['', [Validators.required]]
-      });
-  }
-
-  addComment(){
-    this.commentForm.value.userid = this.userid;
-    this.commentForm.value.username = this.username;
-    this.service.addComment(this.userid, this.postid, this.commentForm.value)
-    .then((res)=>{
-      if(res.success){
-        this.comments = this.comments.concat([res.comment]);
-        
-        
-      }
-    })
-    .then(()=>{
-      this.commentForm.reset();
-      this.cdr.detectChanges();
-    })
-  }
-
-  
-}

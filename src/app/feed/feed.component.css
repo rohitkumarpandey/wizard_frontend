@@ -63,6 +63,10 @@
     line-height: 1.8em;
     text-align: left;
 }
+.postDescription p{
+    outline: 0;
+    border: 0;
+}
 textarea{
     outline: none;
     border: 0;
@@ -101,22 +105,23 @@ textarea{
 
 .showCommentDiv{
     width: 95%;
-    height : 0vh;
+    height : 0;
     background-color:white;
     position: absolute;
     bottom: 0;
     border-radius: 10px 10px 0 0;
+    padding-bottom: 5px;
 
 }
 .closeCommentDiv{
-    height: 5vh;
+    height: 5%;
     padding: 10px;
     border-radius: 10px 10px 0 0;
     background-color: white;
 }
 .othersComment{
     width: 100%;
-    height: 65vh;
+    height: 70%;
     overflow-y: scroll;
     padding: 8px;
     background-color: white;
@@ -131,11 +136,17 @@ textarea{
 .writeCommentDiv{
     width: 100%;
     padding: 5px 0 0 0;
+    margin-top: 10px;
     height: max-content;
 }
 .writeCommentDiv textarea{
     border: 2px; width: 87%; float: left; resize: none;
-    background-color: white;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    border-color: gainsboro;
+    border-style: solid;
+   
+
 }
 
 .loadSpinner{
