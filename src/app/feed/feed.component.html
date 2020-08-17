@@ -114,7 +114,7 @@
       <div class="modal-body">
         <strong style="color: white;">Going to post a..</strong>
         <form [formGroup]="postForm">
-        <div id= "choosePostType" style="height: 75vh; margin-top: 15px;">
+        <div id= "choosePostType" style="height: 50%;">
         
         <table  class="table">
           <tbody>
@@ -126,8 +126,8 @@
         </table>
       </div>
      
-        <div id="writePostContent" style="width: 100%; height: 70vh;">
-          <div class="postingAs">
+        <div id="writePostContent" style="width: 100%; height: 100%; padding-top:50px;">
+          <div class="postingAs" >
             <select required  class="form-control" formControlName = "username" >
               <option selected="selected" disabled value="">Posting as..</option>
               <option>{{username}}</option>

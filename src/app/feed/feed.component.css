@@ -203,21 +203,20 @@ table tr, table tr td{
     background-color: #1F2833;
 }
 .modal-body{
-    
-    height: 75vh;
-    overflow-y: scroll;
     background-color: #1F2833;
+    height: 470px;
+    overflow-y: scroll;
     scroll-behavior: smooth;
 }
-.modal-body form select{
-    background-color: #0B0C10;
-    color: #45A29E;
-    border: 0;
-}
-.modal-body form textarea { 
-    background-color: #0B0C10;
+.modal-body form select, .modal-body form textarea {
+    background-color: #1F2833;
     color: #fff;
+    border-style: solid;
+    border-color: gray;
+    outline: thin;
+    border-width: 1px;
 }
+
 .modal-footer{
     background-color: #1F2833;
 }

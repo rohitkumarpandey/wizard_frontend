@@ -13,7 +13,7 @@
                 No Activity to show
             </div>
             <div class="activityDetail" *ngFor="let post of myPosts">
-                You shared a <span style="font-weight: 750;">{{post.postType}}</span>.
+                You shared a <span style="font-weight: 750;">{{post.postType}}</span><span *ngIf="post.username ==='Anonymous'"> as an <span style="font-weight: 750;">{{post.username}}</span></span>.
                 <p style="font-weight: lighter; color: grey; font-size: 10px;">{{post.postedAt | date : 'short'}}</p>
             </div>
         </div>

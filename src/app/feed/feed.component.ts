@@ -47,6 +47,13 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $('table tr td div').on('click', function(){
+        $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'grey'})
+        $(this).css({backgroundColor : 'slategray', borderColor : 'white'});
+      })
+    })
+   
    
     this.loadInitialData();
     if(screen.width > 610){
@@ -175,10 +182,7 @@ export class FeedComponent implements OnInit {
     $('#myModal').modal('show');
   }
   seclectedPostType(postType){
-    $('table tr td div').on('click', function(){
-      $('table tr td div').css({backgroundColor : 'transparent', borderColor : 'grey'})
-      $(this).css({backgroundColor : 'slategray', borderColor : 'white'});
-    })
+  
     this.postType = postType;
     
   }
@@ -208,6 +212,8 @@ export class FeedComponent implements OnInit {
    
   }
   post(post){
+    this.isLoading = true;
+    this.spinner.show();
     this.service.addPost(post, this.authService.getUserId())
     .then((res)=>{
       if(res.success){
@@ -218,8 +224,13 @@ export class FeedComponent implements OnInit {
     }).then(()=>{
       $('.modal-body').scrollTop(-3000);    
       this.postForm.reset();
-      $('table tr td div').css({backgroundColor : 'transparent', borderColor : 'grey'});
-      setTimeout(()=>  $('#myModal').modal('hide'), 190);
+      $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'grey'});
+      setTimeout(()=>{
+        $('#myModal').modal('hide');
+        this.isLoading = false;
+        this.spinner.hide();
+      }
+        , 190);
      
     });
   }
@@ -233,6 +244,8 @@ export class FeedComponent implements OnInit {
 
   //delete post
   deletePost(postid, postindex){
+    this.isLoading = true;
+    this.spinner.show();
     this.service.deletePost(this.userid, postid)
     .then((res)=>{
       if(res.success){
@@ -241,6 +254,10 @@ export class FeedComponent implements OnInit {
         this.totalPosts--;
 
       }
+    })
+    .then(()=>{
+      this.spinner.hide();
+      this.isLoading = false;
     })
   }
 
