@@ -47,12 +47,21 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     $(document).ready(function(){
       $('table tr td div').on('click', function(){
         $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'grey'})
         $(this).css({backgroundColor : 'slategray', borderColor : 'white'});
-      })
+      });
+
+      $(".commentBox").on('click', function() {
+        console.log('scroll');
+      //   $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+         
+     });​
+    
     })
+  
    
    
     this.loadInitialData();
@@ -128,8 +137,10 @@ export class FeedComponent implements OnInit {
 
   showComments(index, postid){
     this.postid = postid;
-    $('.othersComment').scrollTop(-3000);
-    $('.showCommentDiv').animate({height : '85%'}, 500);
+  
+    
+  //  $('#scrollCommentDiv').scrollTop($('#scrollCommentDiv').height());
+  
 
     this.comments = [];
     this.progressBar = true;
@@ -137,8 +148,12 @@ export class FeedComponent implements OnInit {
      if(post._id == postid){
 
        this.comments = post.comments;
+       
      }
     });
+    $('.showCommentDiv').animate({height : '90%'}, 500);
+    $("#scrollCommentDiv").animate({ scrollTop: 100000}, 2000);
+    
     this.progressBar = false;
   }
   addComment(){
@@ -224,13 +239,13 @@ export class FeedComponent implements OnInit {
     }).then(()=>{
       $('.modal-body').scrollTop(-3000);    
       this.postForm.reset();
-      $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'grey'});
+      $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'rgb(89, 102, 114)'});
       setTimeout(()=>{
         $('#myModal').modal('hide');
         this.isLoading = false;
         this.spinner.hide();
       }
-        , 190);
+        , 500);
      
     });
   }

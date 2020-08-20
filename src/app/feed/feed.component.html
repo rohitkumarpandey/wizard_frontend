@@ -15,7 +15,7 @@
   
     <div class="post" *ngFor= "let post of posts; let indx = index">
       <div class="container-fluid" style="padding: 0;">
-      <label style=" margin-left:10px; margin-top: 10px; font-size: 18px;">{{post.username}} &nbsp;</label>
+      <label style=" margin-left:10px; margin-top: 10px; font-size: 18px;">{{post.username}}&nbsp;</label>
       <label style="color: grey; font-size: 14px; font-weight: lighter;" *ngIf="post.userAbout!=null">| {{post.userAbout}}</label>
       <button mat-icon-button style="float: right;" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
@@ -49,11 +49,11 @@
           
         <div class="commentCountDiv">{{post.comments.length}} comment<span *ngIf="post.comments.length > 1">s</span></div>
         <div class="commentBox" (click)="showComments(indx, post._id)" style="cursor: pointer;">Write comment here...</div>
-        <p style="margin-left: 5px; color: grey; font-size: 10px; margin-top: 5px;">{{post.postedAt | date : 'short'}}</p>
+        <p style="margin-left: 5px; color: grey; font-size: 10px; margin-top: 5px;">{{post.postedAt | date : 'dd/MMM/yyyy hh:mm a'}}</p>
       </div>
     </div>
     </div>
-    <div class="loadSpinner" style="position: relative;" [ngStyle]="{'margin-bottom' : isMobile ? '90px' : '20px'}" >
+    <div class="loadSpinner" style="position: relative;" [ngStyle]="{'margin-bottom' : isMobile ? '90px' : '50px'}" >
       <ngx-spinner
       bdOpacity = .9
       bdColor = ""
@@ -72,12 +72,12 @@
         <button type="button" class="close" (click)="closeCommentBox()">&times;</button>
       </div>
       <mat-progress-bar mode="indeterminate" *ngIf="progressBar"></mat-progress-bar>
-    <div class="othersComment">
+    <div id="scrollCommentDiv" class="othersComment" [ngStyle] = "{'height' : isMobile ? '75%' : '70%'}">
       <div class="writtenComment" *ngFor="let comment of comments">
        <label>{{comment.username}} <span *ngIf="comment.userAbout!= null" style="font-weight: lighter; color: grey;">| {{comment.userAbout}}</span></label>
        <p style="margin-left: 5px;">{{comment.commentDesc}}</p>
        <label *ngIf="userid == comment.userid" style="color: lightslategray; font-size: 12px;font-weight: lighter;"><span style="cursor: pointer;">Edit</span>&nbsp;&nbsp;<span style="cursor: pointer;">Delete</span></label>
-      <br/> <label style="color: grey; opacity: .8; font-weight: 300; font-size: 10px;">{{comment.commentedAt | date : 'short'}}</label>
+      <br/> <label style="color: grey; opacity: .8; font-weight: 300; font-size: 10px;">{{comment.commentedAt | date : 'dd/MMM/yyyy hh:mm a'}}</label>
       </div>
   
     </div>
@@ -86,24 +86,24 @@
       <textarea placeholder="Write your comment here..." rows="2" formControlName="commentDesc"></textarea>
     </form>
     </div>
-    <label *ngIf="commentForm.valid" style="cursor: pointer; margin-left : 8px; margin-top: 20px;bottom : 0; color: royalblue; float: left;" (click)="addComment()">Send</label>
+    <label *ngIf="commentForm.valid" style="cursor: pointer; margin-left : 5px; margin-top: 20px;bottom : 0; color: royalblue; float: left;" (click)="addComment()">Send</label>
 </div>
 </div>
-<div class="user col-md-2 col-md-offset-1">
+<div class="user col-md-2 col-md-offset-1 shadowBox">
     <div class="shortProfileName container-fluid">
       <img src="assets/wizard_wallpaper.jpg" class="img-circle">
       <strong>        {{username}}</strong>
     </div>
     <div class="shortProfileDetails container-fluid">
       <p style="cursor: pointer;" (click)="openCreatePostModal()">Create Post</p>
-      <p>My Posts</p>
+      <p contenteditable="false" style="cursor : pointer; outline: none;">My Posts</p>
       <p>Total Posts : <span style="font-size: large; font-weight: bold; color: royalblue;">{{totalPosts}}</span></p>
   </div>
 </div>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog ">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -111,7 +111,7 @@
         <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
         
       </div>
-      <div class="modal-body">
+      <div class="modal-body"  [ngStyle]="{'height' : isMobile ? '425px' : '420px'}">
         <strong style="color: white;">Going to post a..</strong>
         <form [formGroup]="postForm">
         <div id= "choosePostType" style="height: 50%;">
@@ -119,29 +119,29 @@
         <table  class="table">
           <tbody>
             <tr *ngFor="let i of postTypes; let indx = index ">
-              <td *ngIf="indx%2===0" (click)="seclectedPostType(postTypes[indx])"><div>{{postTypes[indx]}}</div></td>
-              <td *ngIf="indx%2===0 && indx + 1 < postTypes.length" (click)="seclectedPostType(postTypes[indx+1])"><div>{{postTypes[indx+1]}}</div></td>
+              <td *ngIf="indx%2===0" (click)="seclectedPostType(postTypes[indx])"><div class="shadowBox">{{postTypes[indx]}}</div></td>
+              <td *ngIf="indx%2===0 && indx + 1 < postTypes.length" (click)="seclectedPostType(postTypes[indx+1])"><div class="shadowBox">{{postTypes[indx+1]}}</div></td>
             </tr>
           </tbody>
         </table>
       </div>
      
-        <div id="writePostContent" style="width: 100%; height: 100%; padding-top:50px;">
-          <div class="postingAs" >
+        <div id="writePostContent" style="width: 100%; height: 100%; padding-top:80px;">
+          <div class="postingAs" class="shadowBox" >
             <select required  class="form-control" formControlName = "username" >
               <option selected="selected" disabled value="">Posting as..</option>
               <option>{{username}}</option>
               <option>Anonymous</option>
             </select>
           </div>
-        <textarea  rows="13" formControlName="post" placeholder="Write your post here..." autofocus style="margin-top: 50px; font-size: 14px;"></textarea>
+        <textarea class="shadowBox" rows="13" formControlName="post" placeholder="Write your post here..." autofocus style="margin-top: 30px; font-size: 14px;"></textarea>
       </div>
     </form>
       </div>
     
       <div class="modal-footer">
-        <button class="btn btn-default" *ngIf= "prevBtn" (click)="previous()">Previous</button>
-        <button class="btn btn-primary" (click)="prevent($event)">Next</button>
+        <button class="btn btn-default shadowBox" *ngIf= "prevBtn" (click)="previous()">Previous</button>
+        <button class="btn btn-primary shadowBox" (click)="prevent($event)">Next</button>
       </div>
     </div>
 
