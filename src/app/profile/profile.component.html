@@ -1,10 +1,19 @@
 <ngx-spinner></ngx-spinner>
 <div class=" profileContainer col-md-6 col-md-offset-3">
+    <div class="profileImageDiv">
     <div class="profileImage">
-        
+    </div>
     </div>
     <div class="profileDiv">
-        <div class="profileDetails">{{username}}<span>{{about}}</span></div>
+        <div class="profileDetails">{{username}}<span>{{about}}</span>
+            <span class="glyphicon glyphicon-camera" style="float : right;left:  -10px; font-size:20px;"></span></div>
+    </div>
+    <div class="credentials">
+        <div class="form-group" >
+            <input type="email" class="form-control" value="{{emailid}}" readonly>
+            
+        </div>
+        <label class="changepasswordLabel">Click <span style="color: crimson;cursor: pointer;">here</span> to change <span style="font-weight: bolder;">password</span>.</label>
     </div>
     <div class="activity">
         Activity
@@ -14,7 +23,7 @@
             </div>
             <div class="activityDetail" *ngFor="let post of myPosts">
                 You shared a <span style="font-weight: 750;">{{post.postType}}</span><span *ngIf="post.username ==='Anonymous'"> as an <span style="font-weight: 750;">{{post.username}}</span></span>.
-                <p style="font-weight: lighter; color: grey; font-size: 10px;">{{post.postedAt | date : 'dd/MMM/yyyy hh:mm a'}}</p>
+                <p style="font-weight: lighter; color: grey; font-size: 10px;">{{post.postedAt | date : 'dd MMM yyyy, hh:mm a'}}</p>
             </div>
         </div>
         <div class="deleteAccount">

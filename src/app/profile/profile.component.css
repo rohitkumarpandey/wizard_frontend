@@ -3,34 +3,62 @@
     height: 100vh;
     background-color: #1F2833; 
     overflow-y: scroll;   
-    padding-bottom: 50px;
+    padding-bottom: 100px;
 }
-
+.profileImageDiv{
+    padding : 2px;
+    background-color: white;
+    
+    border-radius: 10px 10px 0 0;
+}
 .profileImage{
-    height: 250px;
+    min-height: 350px;
+    max-height: fit-content;
+
+    border-radius: 10px 10px 0 0;
     background-color:white;
+    background-image: url("../../assets/thor.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .profileDiv{
     height: 55px;
     border-radius: 0 0 50% 50%;
-    background-color: white;
+    background-color: whitesmoke;
     text-align: left;
 }
 .profileDetails{
-  
-  
-  background-color: white;
-    color: cadetblue;
-    font-weight: 500;
-    padding-left: 10px;
-  font-size: 20px;
-  text-align: left;
+    background-color: transparent;
+        color: cadetblue;
+        font-weight: 500;
+        padding-left: 10px;
+    font-size: 20px;
+    text-align: left;
+    text-transform: capitalize;
 }
 .profileDetails span{
     font-size: 12px;
     color: grey;
     margin-left: 10px;
+}
+.credentials{
+    margin-top: 30px;
+    height: fit-content;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+.credentials input{
+    width: 100%;
+}
+.changepasswordLabel{
+    color: grey;
+    font-weight: 500;
+    font-size: 9pt;
+    
+    
 }
 .activity{
     

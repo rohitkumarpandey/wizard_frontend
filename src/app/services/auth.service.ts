@@ -53,7 +53,13 @@ export class AuthService {
   getUserAbout(){
     return localStorage.getItem('userAbout');
   }
-
+  getUserEmail(){
+    return localStorage.getItem('email');
+  }
+  
+  setUserEmail(email){
+    localStorage.setItem('email', email);
+  }
   //isLoggedIn
   isLoggedIn(){
     return this.getUserId() && this.getToken();

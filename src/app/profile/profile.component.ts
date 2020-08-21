@@ -12,9 +12,11 @@ export class ProfileComponent implements OnInit {
   username : String;
   myPosts = [];
   about : String;
+  emailid : String = null;
 
   constructor(private service : ProfileService, private authService : AuthService, private spinner : NgxSpinnerService) { 
    this.username = this.authService.getUsername();
+   this.emailid = this.authService.getUserEmail();
    
   }
 

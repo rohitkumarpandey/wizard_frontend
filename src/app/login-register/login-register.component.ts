@@ -51,19 +51,16 @@ export class LoginRegisterComponent implements OnInit {
         this.authService.setUserId(res.userid);
         this.authService.setUsername(res.username);
         this.authService.setToken(res.token);
-        //this.authService.setUserId(res.userid);
+        this.authService.setUserEmail(this.loginForm.value.emailid);
         this.router.navigateByUrl('home');
-}else{
+      }else{
         this.errorMessage
          = res.errorMessage;
       }
     }).then(()=>{
         this.spinner.hide();
     })
-  //   setTimeout(()=>{
-  //     this.router.navigateByUrl('/home');
-  //     this.spinner.hide();
-  //   }, 1000);
+ 
     
   }
 
