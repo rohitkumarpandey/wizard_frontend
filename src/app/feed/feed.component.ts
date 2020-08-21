@@ -184,7 +184,7 @@ export class FeedComponent implements OnInit {
   }
 
   closeCommentBox(){
-    $('.showCommentDiv').animate({height : 0}, 500);
+    $('.showCommentDiv').animate({height : '-10vh'}, 500);
   }
 
   //open post modal
