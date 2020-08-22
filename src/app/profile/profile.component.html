@@ -12,7 +12,7 @@
     <div class="profileDiv">
         <div class="profileDetails">{{username}}<span>{{about}}</span>
             <span  class="glyphicon glyphicon-camera" style="float : right;left:  -10px; font-size:20px; cursor: pointer;" (click)="uploadImage()">
-                <form [formGroup] = "profileImageForm" enctype="multipart/form-data" (ngSubmit)="uploadProfilePic()">
+                <form [formGroup] = "profileImageForm" enctype="multipart/form-data" >
                     <input  name="image" type="file" id="uploadProfile" style="display:none" (change)="fileProgress($event)">
                 </form>
             </span></div>
