@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { AuthService } from '../services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+declare var $ : any;
 
 @Component({
   selector: 'app-profile',
@@ -13,10 +15,16 @@ export class ProfileComponent implements OnInit {
   myPosts = [];
   about : String;
   emailid : String = null;
-
-  constructor(private service : ProfileService, private authService : AuthService, private spinner : NgxSpinnerService) { 
+  profileImageForm : FormGroup;
+  fileDate : File = null;
+  previewUrl : any = null;
+  constructor(private service : ProfileService, private fb : FormBuilder, private authService : AuthService, private spinner : NgxSpinnerService) { 
    this.username = this.authService.getUsername();
    this.emailid = this.authService.getUserEmail();
+
+   this.profileImageForm = this.fb.group({
+     profilePic : ['', [Validators.required]]
+   });
    
   }
 
@@ -34,6 +42,29 @@ export class ProfileComponent implements OnInit {
         }
       })
       .then(()=>this.spinner.hide())
+  }
+
+  uploadImage(){
+    $('#uploadProfile').click();
+  }
+
+  fileProgress(fileInput : any){
+    this.fileDate = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview(){
+    var mimetype = this.fileDate.type;
+    if(mimetype.match(/image\/*/) == null){
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileDate);
+    reader.onload = (_event)=>{
+      this.previewUrl = reader.result;
+      console.log(this.previewUrl);
+    }
   }
 
 }

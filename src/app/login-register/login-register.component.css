@@ -78,7 +78,6 @@ a{
     color: brown;
 }
 .form-div .form-element{
-    overflow-y: scroll;
     width: 100%;
     height: 100%;
     border-radius: 0 0 10px 10px;

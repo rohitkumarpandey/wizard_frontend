@@ -2,12 +2,22 @@
 <div class=" profileContainer col-md-6 col-md-offset-3">
     <div class="profileImageDiv">
     <div class="profileImage">
+        <img [src]="previewUrl ? previewUrl : 'assets/thor.jpg'"  />
+        <div class="profileImageOptions" style="background-color : black; opacity : .5; margin-left : 16.5px;margin-right : 126.5px; 
+         text-align : right; position : absolute; z-index : 1000;left : 0px; top : 325px; right : 0;line-height : 40px; width : 100% ">
+            <mat-icon >delete</mat-icon></div>
     </div>
     </div>
+    
     <div class="profileDiv">
         <div class="profileDetails">{{username}}<span>{{about}}</span>
-            <span class="glyphicon glyphicon-camera" style="float : right;left:  -10px; font-size:20px;"></span></div>
+            <span  class="glyphicon glyphicon-camera" style="float : right;left:  -10px; font-size:20px; cursor: pointer;" (click)="uploadImage()">
+                <form [formGroup] = "profileImageForm" enctype="multipart/form-data" (ngSubmit)="uploadProfilePic()">
+                    <input  name="image" type="file" id="uploadProfile" style="display:none" (change)="fileProgress($event)">
+                </form>
+            </span></div>
     </div>
+    
     <div class="credentials">
         <div class="form-group" >
             <input type="email" class="form-control" value="{{emailid}}" readonly>
