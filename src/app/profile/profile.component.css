@@ -1,3 +1,13 @@
+/* for mobile */
+@media screen and (max-width: 610px){
+    /* .profileImage{
+        overflow-x: hidden!important;
+    } */
+    .profileImage img{
+        width: 100%!important;
+    }
+}
+
 .profileContainer{
     padding-top: 10px;
     height: 100vh;
@@ -12,9 +22,9 @@
     border-radius: 10px 10px 0 0;
 }
 .profileImage{
-    overflow : hidden;
+    overflow-y : hidden;
     height: 350px;
-text-align: center;
+    text-align: center;
     border-radius: 10px 10px 0 0;
     background-color:white;
     /* background-image: url("../../assets/thor.jpg"); */
@@ -23,8 +33,23 @@ text-align: center;
     background-size: cover;
 }
 .profileImage img{
-    height : auto;
+    min-height : 350px;
+    max-height : auto;
     width : 100%;
+}
+
+.optionDiv{
+    background-color: #1F2833; opacity: .8;
+    cursor: pointer;
+    width: fit-content; height: 35px; float: right;
+    margin-left: 10px;
+    padding: 0 5px 0 5px;
+    
+}
+
+.optionDiv button{
+    background-color: transparent;
+    color: white;
 }
 
 .profileDiv{
@@ -35,7 +60,7 @@ text-align: center;
 }
 .profileDetails{
     background-color: transparent;
-        color: cadetblue;
+    color: cadetblue;
         font-weight: 500;
         padding-left: 10px;
     font-size: 20px;
