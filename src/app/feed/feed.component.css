@@ -1,5 +1,8 @@
 /* for mobile */
 @media screen and (max-width: 610px){
+    .feed{
+        padding-bottom: 70px!important;
+    }
     .createpostmobile{
         visibility: visible!important;
     }
@@ -110,7 +113,7 @@ textarea{
     height : 0;
     background-color:white;
     position: absolute;
-    bottom: 0;
+    bottom: -10vh;
     border-radius: 10px 10px 0 0;
     padding-bottom: 50px;
 
@@ -163,7 +166,7 @@ textarea{
     padding-top: 10px;
 }
 .user{
-    height: 200px;
+    height: 250px;
     padding: 0;
     margin-top: 150px;
     background-color: #1F2833;

@@ -76,12 +76,11 @@ export class ProfileComponent implements OnInit {
     .then((res)=>{
         if(res.success){
           
-          this.profilePicture = res.user.profilePic;  
+          this.getProfile();   
           this.previewUrl = null;
         }
         
     }).then(()=>{
-      console.log(this.profilePicture); 
       this.spinner.hide();
     })
     

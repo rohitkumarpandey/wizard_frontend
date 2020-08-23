@@ -28,6 +28,7 @@ export class FeedComponent implements OnInit {
   commentForm : FormGroup;
   postid : String;
   progressBar : Boolean = false;
+  profilePicture : String = null;
   constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private service : FeedService) { 
     this.username = this.authService.getUsername();
     this.userid = this.authService.getUserId();
@@ -101,6 +102,7 @@ export class FeedComponent implements OnInit {
     this.service.getUserData(this.authService.getUserId())
     .then((res)=>{
       if(res.success){
+        this.profilePicture = res.user.profilePic;
         this.userAbout = res.user.about;
         this.totalPosts = res.user.posts.length;
         this.isLoading = false;
@@ -151,7 +153,7 @@ export class FeedComponent implements OnInit {
        
      }
     });
-    $('.showCommentDiv').animate({height : '90%'}, 500);
+    $('.showCommentDiv').animate({height : '90%', bottom:0}, 500);
     $("#scrollCommentDiv").animate({ scrollTop: 100000}, 2000);
     
     this.progressBar = false;
@@ -184,7 +186,7 @@ export class FeedComponent implements OnInit {
   }
 
   closeCommentBox(){
-    $('.showCommentDiv').animate({height : '-10vh'}, 500);
+    $('.showCommentDiv').animate({height : '0vh', bottom : '-10vh'}, 500);
   }
 
   //open post modal

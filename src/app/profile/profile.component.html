@@ -2,8 +2,8 @@
 <div class=" profileContainer col-md-6 col-md-offset-3">
     <div class="profileImageDiv">
     <div class="profileImage">
-        <img class="img-responsive" [src]="previewUrl ? previewUrl : (profilePicture) ? profilePicture : 'assets/defaultProfilePic.png'"  />
-        <div class="profileImageOptions" style="background-color : transparent; padding-right: 22px; 
+        <img class="img-responsive" [src]="(previewUrl != null) ? previewUrl : (profilePicture != null) ? profilePicture : 'assets/defaultProfilePic.png'"  />
+        <div class="profileImageOptions" style="background-color : transparent; padding-right: 21.5px; 
          text-align : right; position : absolute; z-index : 1000;left : 0px; top : 325px; right : 0;line-height : 40px; width : 100% ">
             <div class="optionDiv" *ngIf="profilePicture || previewUrl" >
                 <mat-icon style="margin-top: 8px; margin-bottom: 0; color: crimson;" (click)="deleteProfilePic()">delete</mat-icon>
@@ -17,7 +17,7 @@
     
     <div class="profileDiv">
         <div class="profileDetails">{{username}}<span>{{about}}</span>
-            <span  class="glyphicon glyphicon-camera" style="float : right;left:  -10px; font-size:22px; cursor: pointer;" (click)="uploadImage()">
+            <span  class="glyphicon glyphicon-camera" style="float : right;left:  -10px; font-size:25px; cursor: pointer;" (click)="uploadImage()">
                 <form [formGroup] = "profileImageForm" enctype="multipart/form-data" >
                     <input  name="image" type="file" id="uploadProfile" style="display:none" (change)="fileProgress($event)">
                 </form>

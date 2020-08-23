@@ -44,12 +44,15 @@
     width: fit-content; height: 35px; float: right;
     margin-left: 10px;
     padding: 0 5px 0 5px;
+    border-radius: 5px;
+    
     
 }
 
 .optionDiv button{
     background-color: transparent;
     color: white;
+    outline: none;
 }
 
 .profileDiv{

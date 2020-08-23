@@ -90,8 +90,9 @@
 </div>
 </div>
 <div *ngIf="!isMobile" class="user col-md-2 col-md-offset-1 shadowBox">
-    <div class="shortProfileName container-fluid">
-      <img src="assets/wizard_wallpaper.jpg" class="img-circle">
+    <div class="shortProfileName container-fluid" >
+      <img [src]='profilePicture' class="img-circle" alt="profile" style="border : 2px; border-color : whitesmoke; border-style : solid">
+    
       <strong>        {{username}}</strong>
     </div>
     <div class="shortProfileDetails container-fluid">
