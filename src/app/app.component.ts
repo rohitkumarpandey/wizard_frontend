@@ -28,6 +28,10 @@ export class AppComponent {
     // .catch()
 
   }
+
+  ngOnInit(){
+    
+  }
  
   
 

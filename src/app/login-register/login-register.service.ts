@@ -9,6 +9,14 @@ export class LoginRegisterService {
 
   constructor(private http : HttpClient) { }
 
+  serverConnection(): Promise<any>{
+    return this.http.get(environment.pingServerUrl)
+      .toPromise()
+      .then((res)=>{
+        return res;
+      })
+    }
+
 
   login(data) : Promise<any>{
   return this.http.post(environment.userAPIUrl +'/login', data)

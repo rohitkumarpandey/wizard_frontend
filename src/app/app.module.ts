@@ -35,6 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FeedComponent } from './feed/feed.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     LoginRegisterComponent,
     HomeComponent,
     ProfileComponent,
-    FeedComponent
+    FeedComponent,
+    AdminDashboardComponent
   ],
  
   imports: [

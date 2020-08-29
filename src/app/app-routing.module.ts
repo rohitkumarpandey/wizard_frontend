@@ -4,11 +4,13 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FeedComponent } from './feed/feed.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 
 const routes: Routes = [
    {path : ``, component :LoginRegisterComponent },
+   {path : 'admin-dashboard', component : AdminDashboardComponent},
    {path : 'home', component : HomeComponent, children:[
     {path :'', redirectTo : 'feed', pathMatch : 'full'},
     {path : 'feed', component : FeedComponent},

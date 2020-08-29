@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   profileImageForm : FormGroup;
   fileDate : File = null;
   previewUrl : any = null;
-  profilePicture : String = null;
+  profilePicture : String;
   constructor(private service : ProfileService, private fb : FormBuilder, private authService : AuthService, private spinner : NgxSpinnerService) { 
    this.username = this.authService.getUsername();
    this.emailid = this.authService.getUserEmail();
@@ -80,8 +80,6 @@ export class ProfileComponent implements OnInit {
           this.previewUrl = null;
         }
         
-    }).then(()=>{
-      this.spinner.hide();
     })
     
   }

@@ -16,7 +16,8 @@ export class LoginRegisterComponent implements OnInit {
   errorMessage : String = null;
   registrationForm :FormGroup; 
   isLoginForm : Boolean = true;
-  
+  serverStatus : String = 'Connecting to server...';
+  userType : String = "user";
   constructor(private router : Router, private spinner : NgxSpinnerService, private fb : FormBuilder,
      private service : LoginRegisterService, private authService : AuthService) { 
        this.loginForm = this.fb.group({
@@ -40,12 +41,24 @@ export class LoginRegisterComponent implements OnInit {
       $(this).css({backgroundColor : 'lightblue'});
     });
 
-  
+    //connecting to server
+    this.service.serverConnection()
+    .then((res)=>{
+      this.serverStatus = res.message;
+    })
+  }
+
+  changeUserType(user){
+    if(user === "admin"){
+      this.userType = user;
+    }else{
+      this.userType = user;
+    }
   }
   
 
   login(){
-   
+  if(this.userType === "user"){
   this.spinner.show();
     this.service.login(this.loginForm.value)
     .then((res)=>{
@@ -62,6 +75,9 @@ export class LoginRegisterComponent implements OnInit {
     }).then(()=>{
         this.spinner.hide();
     })
+  }else{
+    this.router.navigateByUrl('admin-dashboard');
+  }
  
     
   }

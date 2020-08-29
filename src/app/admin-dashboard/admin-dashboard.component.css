@@ -1,0 +1,94 @@
+/* for mobile */
+@media screen and (max-width: 610px){
+    table tbody tr td{
+        
+        word-wrap: break-word;
+    }
+    .userListContainer{
+        margin : 30px 5px 5px 5px!important;
+        
+    }
+    .tableContainer{
+        overflow-x:scroll!important;
+    }
+}
+
+
+.background{
+    background-color: #1F2833;
+    padding-bottom: 30px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.navigationBar{
+    background-color: black;
+    line-height: 55px;
+    padding-left: 10px;
+    color: white;
+    font-size: 12pt;
+}
+.welcomeMessage{
+    color: whitesmoke;
+    line-height: 80px;
+    text-align: center;
+    font-size: 18pt;
+}
+.userListContainer{
+    background-color: white;
+    min-height: 400px;
+    max-height : 450px;
+    border-radius: 10px;
+    padding:5px;
+    margin-top: 15px;
+    
+}
+/* .containerName{
+    padding : 10px;
+} */
+.tableContainer{
+    max-height: 400px;
+    min-height: fit-content;
+    overflow-y : scroll;
+    padding: 0;
+    overflow-x: hidden;
+}
+table{
+    max-height: 375px;
+    overflow-x: hidden;
+}
+
+
+table th{
+    text-align: center;
+    padding:10px;
+    position: sticky;
+    top:-1px;
+    background-color: white;
+    z-index: 10;
+    
+   
+}
+/* table tbody tr:nth-of-type(odd){
+    background-color : rgb(181, 192, 202);
+} */
+/* table thead{
+    background-color: blue;
+    z-index: 10;
+    position: sticky;
+    top:0;
+} */
+
+
+table tbody tr td{
+    text-align: center;
+    vertical-align: middle!important;
+    line-height: 25px;
+    max-width: 70px;
+    word-break: keep-all;
+}
+
+.containerName{
+    font-size: 14pt;
+    line-height: 40px;
+    padding-left: 20px;
+}
