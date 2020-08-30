@@ -30,6 +30,8 @@ export class FeedComponent implements OnInit {
   progressBar : Boolean = false;
   profilePicture : String = null;
   isPostOverflow : Boolean = true;
+  previewUrl : any = null;
+  fileData : File = null;
   constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private service : FeedService) { 
     this.username = this.authService.getUsername();
     this.userid = this.authService.getUserId();
@@ -38,7 +40,8 @@ export class FeedComponent implements OnInit {
       username : ['', [Validators.required]],
       userAbout : [''],
       postType : [''],
-      post : ['', [Validators.required]]
+      post : ['', [Validators.required]],
+      postPhoto : ['']
     });
     this.commentForm = this.fb.group({
       userid : [''],
@@ -56,15 +59,8 @@ export class FeedComponent implements OnInit {
         $(this).css({backgroundColor : 'slategray', borderColor : 'white'});
       });
 
-      $(".commentBox").on('click', function() {
-        console.log('scroll');
-      //   $("html, body").animate({ scrollTop: $(document).height() }, "slow");
          
-     });​
-  //    if ($('.postDescription p').scrollWidth >  $('.postDescription p').innerWidth()) {
-  //     //Text has over-flown
-  //     console.log('poverflow');
-  // }
+ 
 
   $(document).on('click', '.postDescription span', function(){
    
@@ -231,6 +227,8 @@ export class FeedComponent implements OnInit {
        // this.postForm.value.username = this.username;
         this.postForm.value.userAbout = this.userAbout;
         //this.postForm.value.postType = this.postType;
+        
+      this.postForm.value.postPhoto = this.previewUrl;
         this.post(this.postForm.value);
       }
       
@@ -268,6 +266,29 @@ export class FeedComponent implements OnInit {
     $('.modal-body').scrollTop(-1000);
     $('.modal-footer button:nth-child(2)').html('Next');
     this.prevBtn = false;
+  }
+
+  //upload photo in post
+
+  openFileFolder(){
+    $('#postPhotoInput').click();
+  }
+  fileProgress(fileInput : any){
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview(){
+    var mimetype = this.fileData.type;
+    if(mimetype.match(/image\/*/) == null){
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event)=>{
+      this.previewUrl = reader.result;
+    }
   }
 
 

@@ -2,7 +2,7 @@
 <div class=" profileContainer col-md-6 col-md-offset-3">
     <div class="profileImageDiv">
     <div class="profileImage">
-        <img class="img-responsive" [src]="(profilePicture != null) ? profilePicture : (previewUrl != null) ? previewUrl : 'assets/defaultProfilePic.png'"  width="500" height="500"/>
+        <img class="img-responsive" height="350" [src]="(profilePicture != null) ? profilePicture : (previewUrl != null) ? previewUrl : 'assets/defaultProfilePic.png'"  width="500" height="500"/>
         <div class="profileImageOptions" style="background-color : transparent; padding-right: 21.5px; 
          text-align : right; position : absolute; z-index : 1000;left : 0px; top : 325px; right : 0;line-height : 40px; width : 100% ">
             <div class="optionDiv" *ngIf="profilePicture || previewUrl" >
