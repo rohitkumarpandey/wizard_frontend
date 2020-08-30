@@ -42,6 +42,8 @@
   
       <!-- <textarea rows="7" readonly>{{post.post}}</textarea> -->
       <p >{{post.post}}</p>
+      <span *ngIf="checkOverflow(post.post)" style="cursor: pointer; font-size: 9pt; color: royalblue;">Read More</span>
+      <img [src]="(profilePicture != null) ? profilePicture : 'assets/thor.jpg'">
     </div>
     
         <div class="commentdiv">

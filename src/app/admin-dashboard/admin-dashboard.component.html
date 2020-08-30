@@ -27,17 +27,19 @@
         <div class="tableContainer">
         <table class="table table-outline table-hover">
             <thead>
+                <th>Sl No.</th>
                 <th>Name</th>
                 <th>Emaild</th>
                 <th>Created On</th>
                 <th></th>
             </thead>
-            <tbody *ngFor="let u  of userList">
+            <tbody *ngFor="let u  of userList; let i = index">
                 <tr>
+                    <td>{{i + 1}}</td>
                     <td>{{u.username}}</td>
                     <td>{{u.emailid}}</td>
                     <td>{{u.d}}</td>
-                    <td><button type="button" class="btn">Deactivate</button></td>
+                    <td><button type="button" class="btn btn-danger">Deactivate</button></td>
                 </tr>
             </tbody>
         </table>
@@ -51,6 +53,7 @@
      <div class="tableContainer">
      <table class="table  table-outline table-hover">
          <thead>
+             <th>Sl No.</th>
              <th>Name</th>
              <th>Emaild</th>
              <th>Deactivated On</th>
@@ -58,16 +61,17 @@
              <th>Reason</th>
              <th></th>
          </thead>
-         <tbody *ngFor="let u  of userList">
-             <tr>
-                 <td>{{u.username}}</td>
-                 <td>{{u.emailid}}</td>
-                 <td>{{u.d}}</td>
-                 <td>Rohit</td>
-                 <td>Offensive Post</td>
-                 <td><button type="button" class="btn">Active</button></td>
-             </tr>
-         </tbody>
+         <tbody *ngFor="let u  of userList; let i = index">
+            <tr>
+                <td style="width: 10px;">{{i + 1}}</td>
+                <td>{{u.username}}</td>
+                <td>{{u.emailid}}</td>
+                <td>{{u.d}}</td>
+                <td></td>
+                <td></td>
+                <td><button type="button" class="btn btn-success">Activate</button></td>
+            </tr>
+        </tbody>
      </table>
  </div>
     </div>
@@ -78,21 +82,26 @@
      <div class="containerName">List of all <span style="color : crimson">Reported</span> users</div>
      <div class="tableContainer">
      <table class="table  table-outline table-hover">
-         <thead>
-             <th>Name</th>
-             <th>Emaild</th>
-             <th>Created At</th>
-             <th></th>
-         </thead>
-         <tbody *ngFor="let u  of userList">
-             
-             <tr>
-                 <td>{{u.username}}</td>
-                 <td>{{u.emailid}}</td>
-                 <td>{{u.d}}</td>
-                 <td><button type="button" class="btn">Active</button></td>
-             </tr>
-         </tbody>
+        <thead>
+            <th >Sl No.</th>
+            <th>Name</th>
+            <th>Emaild</th>
+            <th>Deactivated On</th>
+            <th>Admin</th>
+            <th>Reason</th>
+            <th></th>
+        </thead>
+        <tbody *ngFor="let u  of userList; let i = index">
+           <tr>
+               <td >{{i + 1}}</td>
+               <td>{{u.username}}</td>
+               <td>{{u.emailid}}</td>
+               <td>{{u.d}}</td>
+               <td></td>
+               <td></td>
+               <td><button type="button" class="btn btn-success">Activate</button></td>
+           </tr>
+       </tbody>
      </table>
  </div>
     </div>

@@ -1,9 +1,9 @@
 /* for mobile */
 @media screen and (max-width: 610px){
-    table tbody tr td{
-        
-        word-wrap: break-word;
-    }
+    /* table tbody tr td{
+        background-color: aqua;
+        word-break: keep-all!important;
+    } */
     .userListContainer{
         margin : 30px 5px 5px 5px!important;
         
@@ -27,6 +27,9 @@
     color: white;
     font-size: 12pt;
 }
+li a{
+    cursor: pointer;
+}
 .welcomeMessage{
     color: whitesmoke;
     line-height: 80px;
@@ -48,24 +51,23 @@
 .tableContainer{
     max-height: 400px;
     min-height: fit-content;
-    overflow-y : scroll;
+    overflow : scroll;
     padding: 0;
-    overflow-x: hidden;
 }
 table{
     max-height: 375px;
-    overflow-x: hidden;
 }
 
 
-table th{
+table thead th{
     text-align: center;
     padding:10px;
     position: sticky;
     top:-1px;
     background-color: white;
     z-index: 10;
-    
+    word-break: keep-all!important;
+    white-space: nowrap;
    
 }
 /* table tbody tr:nth-of-type(odd){
@@ -83,8 +85,10 @@ table tbody tr td{
     text-align: center;
     vertical-align: middle!important;
     line-height: 25px;
-    max-width: 70px;
-    word-break: keep-all;
+    width: fit-content;
+}
+table tbody tr td:nth-child(4){
+    white-space: nowrap;
 }
 
 .containerName{

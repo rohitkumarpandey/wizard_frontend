@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AdminDashboardComponent implements OnInit {
   adminName : String = 'Rohit Pandey';
   isLogout : Boolean = false;
-  userList  = [{username : 'Rohit', emailid : 'rohit@gmail.com', d : '12 Aug 2020'},
+  userList  = [{username : 'Rohit Pandey', emailid : 'rohit@gmail.com', d : '12 Aug 2020'},
   {username : 'Rohit', emailid : 'rohit@gmail.com', d : '12 Aug 2020'},
   {username : 'Rohit', emailid : 'rohit@gmail.com', d : '12 Aug 2020'},
   {username : 'Rohit', emailid : 'rohit@gmail.com', d : '12 Aug 2020'},

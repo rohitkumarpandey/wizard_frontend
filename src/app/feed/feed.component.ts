@@ -29,6 +29,7 @@ export class FeedComponent implements OnInit {
   postid : String;
   progressBar : Boolean = false;
   profilePicture : String = null;
+  isPostOverflow : Boolean = true;
   constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private service : FeedService) { 
     this.username = this.authService.getUsername();
     this.userid = this.authService.getUserId();
@@ -60,8 +61,19 @@ export class FeedComponent implements OnInit {
       //   $("html, body").animate({ scrollTop: $(document).height() }, "slow");
          
      });​
+  //    if ($('.postDescription p').scrollWidth >  $('.postDescription p').innerWidth()) {
+  //     //Text has over-flown
+  //     console.log('poverflow');
+  // }
+
+  $(document).on('click', '.postDescription span', function(){
+   
+    $(this).hide(); 
+    $('.postDescription p').eq($(this).index('.postDescription span')).css('height', 'auto');
+  })
     
     })
+    
   
    
    
@@ -277,6 +289,15 @@ export class FeedComponent implements OnInit {
       this.isLoading = false;
     })
   }
+
+  checkOverflow(postContent){
+    if(postContent.trim().split(" ").length > 10){
+      return true;
+    }
+    return false;
+}
+
+
 
 
  
