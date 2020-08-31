@@ -255,6 +255,7 @@ export class FeedComponent implements OnInit {
       setTimeout(()=>{
         $('#myModal').modal('hide');
         this.isLoading = false;
+        this.previewUrl = null;
         this.spinner.hide();
       }
         , 500);
