@@ -9,7 +9,7 @@ import {  HttpClientModule } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {      
   MatButtonModule,      
@@ -37,6 +37,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
+import {NgxImageCompressService} from 'ngx-image-compress';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     MatMenuModule,      
     MatToolbarModule,
     MatBottomSheetModule,      
-    MatIconModule,      
+    MatIconModule,  
+    MatProgressSpinnerModule,    
     MatCardModule,      
     BrowserAnimationsModule,      
     MatFormFieldModule,      
@@ -78,7 +81,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     InfiniteScrollModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}, NgxSpinnerService],
+  providers: [ {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}, NgxSpinnerService, NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

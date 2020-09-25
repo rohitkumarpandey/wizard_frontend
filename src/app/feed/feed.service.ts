@@ -13,6 +13,14 @@ export class FeedService {
 
   constructor(private http : HttpClient) { }
 
+  getUserLists(uid):Promise<any>{
+    return this.http.get(environment.userAPIUrl+'/userLists/'+uid)
+    .toPromise()
+    .then((res)=>{
+      return res;
+    })
+  }
+
   getPosts():Promise<any>{
     return this.http.get(environment.userAPIUrl+'/getPosts')
     .toPromise()

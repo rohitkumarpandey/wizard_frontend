@@ -3,6 +3,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FeedService } from './feed.service';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxImageCompressService } from 'ngx-image-compress';
+
 declare var $ : any;
 
 @Component({
@@ -32,16 +34,19 @@ export class FeedComponent implements OnInit {
   isPostOverflow : Boolean = true;
   previewUrl : any = null;
   fileData : File = null;
-  constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef, private spinner : NgxSpinnerService,private authService : AuthService, private service : FeedService) { 
-    this.username = this.authService.getUsername();
+  userLists  = [];
+  constructor(private fb : FormBuilder, private cdr : ChangeDetectorRef,
+     private spinner : NgxSpinnerService,private authService : AuthService, private service : FeedService,
+     private imageCompress : NgxImageCompressService) { 
+   // this.username = this.authService.getUsername();
     this.userid = this.authService.getUserId();
     this.postForm = this.fb.group({
       userid : [''],
-      username : ['', [Validators.required]],
+      username : [''],
       userAbout : [''],
-      postType : [''],
+      postType : ['', [Validators.required]],
       post : ['', [Validators.required]],
-      postPhoto : ['']
+      image : ['']
     });
     this.commentForm = this.fb.group({
       userid : [''],
@@ -54,6 +59,13 @@ export class FeedComponent implements OnInit {
   ngOnInit() {
    
     $(document).ready(function(){
+
+      $('#userListInput').on('keyup', function(){
+        var value = $(this).val().toLowerCase();
+        $('#userTable tr').filter(function(){
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        })
+      })
       $('table tr td div').on('click', function(){
         $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'grey'})
         $(this).css({backgroundColor : 'slategray', borderColor : 'white'});
@@ -64,8 +76,10 @@ export class FeedComponent implements OnInit {
 
   $(document).on('click', '.postDescription span', function(){
    
-    $(this).hide(); 
+   
     $('.postDescription p').eq($(this).index('.postDescription span')).css('height', 'auto');
+    console.log($('.postDescription p').eq($(this).index('.postDescription span')).val());
+    $(this).hide(); 
   })
     
     })
@@ -74,8 +88,11 @@ export class FeedComponent implements OnInit {
    
    
     this.loadInitialData();
+   
     if(screen.width > 610){
       this.isMobile = false;
+      this.getuserLists();
+      this.loadUserData();
     }else{
       this.isMobile = true;
     }
@@ -89,9 +106,19 @@ export class FeedComponent implements OnInit {
       this.isMobile = true;
     }else{
       this.isMobile = false;
+      this.getuserLists();
+      this.loadUserData();
     }
   }
  
+  getuserLists(){
+    this.service.getUserLists(this.authService.getUserId())
+    .then((res)=>{
+      if(res.success){
+        this.userLists = res.userLists;
+      }
+    })
+  }
 
   loadInitialData(){
       this.spinner.show();
@@ -100,17 +127,15 @@ export class FeedComponent implements OnInit {
         if(res.success){
           this.posts = res.posts;
         }
-      }).then(()=>{
-        
-        this.loadUserData();
-      })
+      }).then(()=>this.spinner.hide());
 
   }
   loadUserData(){
     this.service.getUserData(this.authService.getUserId())
     .then((res)=>{
       if(res.success){
-        this.profilePicture = res.user.profilePic;
+        this.username = res.user.username;
+        this.profilePicture = res.user.image;
         this.userAbout = res.user.about;
         this.totalPosts = res.user.posts.length;
         this.isLoading = false;
@@ -199,49 +224,26 @@ export class FeedComponent implements OnInit {
 
   //open post modal
   openCreatePostModal(){
-    this.prevBtn = false;
-    //$('.modal-body').scrollTop(-1000);    
-    //this.postForm.reset();
     $('form select').get(0).selectedIndex = 0;
-    $('.modal-footer button').html('Next');
     $('#myModal').modal('show');
   }
-  seclectedPostType(postType){
-  
-    this.postType = postType;
-    
-  }
-  prevent(event){
-    this.postForm.value.postType = this.postType;
-    var btnVal = $('.modal-footer button').text();
-    if(btnVal === 'Next'){
-      $('.modal-body').scrollTop(1000);
-    $('.modal-footer button').html('Post');
-    this.prevBtn  = true;
-    }else{
-      if(this.postForm.value.postType == null){
-        this.previous();
-      }else{
-        
-        this.postForm.value.userid = this.authService.getUserId();
-       // this.postForm.value.username = this.username;
-        this.postForm.value.userAbout = this.userAbout;
-        //this.postForm.value.postType = this.postType;
-        
-      this.postForm.value.postPhoto = this.previewUrl;
-        this.post(this.postForm.value);
-      }
-      
-    }
+ 
+
 
     
     
    
-  }
-  post(post){
+  
+  post(){
     this.isLoading = true;
     this.spinner.show();
-    this.service.addPost(post, this.authService.getUserId())
+    this.postForm.value.userid = this.authService.getUserId();
+     this.postForm.value.username = this.username;
+     this.postForm.value.userAbout = this.userAbout;
+     
+   this.postForm.value.image = this.previewUrl;
+    
+    this.service.addPost(this.postForm.value, this.authService.getUserId())
     .then((res)=>{
       if(res.success){
         this.posts = [res.post].concat(this.posts); 
@@ -249,48 +251,43 @@ export class FeedComponent implements OnInit {
         this.cdr.detectChanges();
       }
     }).then(()=>{
-      $('.modal-body').scrollTop(-3000);    
+        
       this.postForm.reset();
-      $('table tr td div').css({backgroundColor : 'darkslategray', borderColor : 'rgb(89, 102, 114)'});
-      setTimeout(()=>{
-        $('#myModal').modal('hide');
-        this.isLoading = false;
-        this.previewUrl = null;
-        this.spinner.hide();
-      }
-        , 500);
-     
+      $('#myModal').modal('hide');
     });
   }
 
-  previous(){
-    $('.modal-body').scrollTop(-1000);
-    $('.modal-footer button:nth-child(2)').html('Next');
-    this.prevBtn = false;
-  }
-
+  
   //upload photo in post
 
   openFileFolder(){
-    $('#postPhotoInput').click();
+    //$('#postPhotoInput').click();
+    this.imageCompress.uploadFile().then(({image, orientation})=>{
+     
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+       result => {
+         this.previewUrl = result;
+       }
+     );
+    });
   }
-  fileProgress(fileInput : any){
-    this.fileData = <File>fileInput.target.files[0];
-    this.preview();
-  }
+  // fileProgress(fileInput : any){
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   this.preview();
+  // }
 
-  preview(){
-    var mimetype = this.fileData.type;
-    if(mimetype.match(/image\/*/) == null){
-      return;
-    }
+  // preview(){
+  //   var mimetype = this.fileData.type;
+  //   if(mimetype.match(/image\/*/) == null){
+  //     return;
+  //   }
 
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event)=>{
-      this.previewUrl = reader.result;
-    }
-  }
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(this.fileData);
+  //   reader.onload = (_event)=>{
+  //     this.previewUrl = reader.result;
+  //   }
+  // }
 
 
   //delete post

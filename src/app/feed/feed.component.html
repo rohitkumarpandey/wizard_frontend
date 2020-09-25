@@ -1,7 +1,35 @@
 <ngx-spinner *ngIf="isLoading"></ngx-spinner>
 <!-- feed container -->
-  
-<div class="feed col-md-5 col-md-offset-3" >
+  <div class="col-md-3 userListsContainer" *ngIf="!isMobile">
+    <div class="userListsBox shadowBox">
+      <p style="text-align: center; color: white!important; font-size: 15pt;">Wizardians</p>
+      <div class="form-group" style="padding : 0 8px 0 8px;">
+      <input id="userListInput" type="text" placeholder="Search..." class="form-control" style="background-color: black; border: 0;">
+      </div>
+      <div class="userListTable table-responsive">
+        <p *ngIf="userLists.length == 0" style="text-align: center; color: aqua!important;">Loading...</p>
+
+      <table  class="table table-condensed table-outline">
+        <tbody id="userTable" *ngFor="let user of userLists">
+          <tr *ngIf="user._id != userid"> 
+          <td style="height: 20px!important;
+          vertical-align: middle!important;">
+          <img class="img-circle" [src]="(user.image == null) ? 'assets/defaultProfilePic.png' : user.image"
+           height="35" width="35"></td>
+          <td style="height: 20px!important;
+          vertical-align: middle!important;">
+            <p >{{user.username}}</p>
+            <p>{{user.about}}</p>
+        </td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+    
+    </div>
+  </div>
+<div class="feed col-md-5" >
  
     <div *ngIf="isMobile" class="createpostmobile  container-fluid" (click)="openCreatePostModal()">Write Something here...</div>
     <div
@@ -43,7 +71,7 @@
       <!-- <textarea rows="7" readonly>{{post.post}}</textarea> -->
       <p >{{post.post}}</p>
       <span *ngIf="checkOverflow(post.post)" style="cursor: pointer; font-size: 9pt; color: royalblue;">Read More</span>
-      <img *ngIf="post.postPhoto != null" [src]="post.postPhoto">
+      <img *ngIf="post.image != null" [src]="post.image">
     </div>
     
         <div class="commentdiv">
@@ -91,13 +119,20 @@
     <label *ngIf="commentForm.valid" style="cursor: pointer; margin-left : 5px; margin-top: 20px;bottom : 0; color: royalblue; float: left;" (click)="addComment()">Send</label>
 </div>
 </div>
+
+
+
 <div *ngIf="!isMobile" class="user col-md-2 col-md-offset-1 shadowBox">
-    <div class="shortProfileName container-fluid" >
-      <img [src]='profilePicture' class="img-circle" alt="profile" style="border : 2px; border-color : whitesmoke; border-style : solid">
+  <div class="shortProfileName container-fluid" >
+
+
+      <img  [src]="(profilePicture) ? profilePicture : 'assets/defaultProfilePic.png'" class="img-circle" alt="profile" style="border : 2px; border-color : whitesmoke; border-style : solid">
     
       <strong>        {{username}}</strong>
     </div>
-    <div class="shortProfileDetails container-fluid">
+    <mat-progress-bar *ngIf="username == null" mode="indeterminate"></mat-progress-bar>
+
+    <div class="shortProfileDetails container-fluid" >
       <p style="cursor: pointer;" (click)="openCreatePostModal()">Create Post</p>
       <p contenteditable="false" style="cursor : pointer; outline: none;">My Posts</p>
       <p>Total Posts : <span style="font-size: large; font-weight: bold; color: royalblue;">{{totalPosts}}</span></p>
@@ -117,7 +152,7 @@
       <div class="modal-body" >
         <strong style="color: white;">Going to post a..</strong>
         <form [formGroup]="postForm">
-        <div id= "choosePostType" style="height: 50%;">
+        <!-- <div id= "choosePostType" style="height: 50%;">
         
         <table  class="table">
           <tbody>
@@ -127,36 +162,38 @@
             </tr>
           </tbody>
         </table>
-      </div>
-     
-        <div id="writePostContent" style="width: 100%; min-height: 400px; padding-top:30px;">
+      </div> -->
+      <br/>
+      <div class="form-group">
+      <input autofocus = "true" type="text" placeholder="Story, Confession, Interview..." class="form-control"
+      formControlName="postType" style="background-color: transparent;">
+    </div>
+          
           <div class="postingAs"  >
-            <select required  class="form-control" formControlName = "username" >
+            <select required  class="form-control"  >
               <option selected="selected" disabled value="">Posting as..</option>
               <option>{{username}}</option>
               <option>Anonymous</option>
             </select>
           </div>
-          <br/>
-          <input id="postPhotoInput" type="file" style="display : none" (change)="fileProgress($event)">
-          <button id="uploadPostPhotoBtn" type="button" class="btn" 
-          (click)="openFileFolder()" *ngIf="!previewUrl" style="background-color: transparent; color:white;
-           border-style: solid; border-color: aliceblue;">Upload Photo</button>
-          <div  *ngIf="previewUrl" class="postPhoto shadowBox">
-            <div  style="width: 250px; text-align: right; padding: 2px 8px 0 0; position: absolute; z-index: 1000;
-             background-color:transparent; opacity: .8;">
-              <span class="glyphicon glyphicon-remove" style="font-size: 11pt; color : crimson; cursor: pointer;" (click)="previewUrl = null"></span></div>
-         
-            <img  [src]="previewUrl" height="300" width="400"/>
-          </div>
         <textarea class="shadowBox" rows="4" formControlName="post" placeholder="Write your post here..." autofocus style="margin-top: 30px; font-size: 14px;"></textarea>
-      </div>
+        <br/><br/>
+        <input id="postPhotoInput" type="file" style="display : none" (change)="fileProgress($event)">
+        <button id="uploadPostPhotoBtn" type="button" class="btn" 
+        (click)="openFileFolder()" *ngIf="!previewUrl" style="background-color: transparent; color:white;
+         border-style: solid; border-color: aliceblue;">Upload Photo</button>
+        <div  *ngIf="previewUrl" class="postPhoto shadowBox">
+          <div  style="width: 250px; text-align: right; padding: 2px 8px 0 0; position: absolute; z-index: 1000;
+           background-color:transparent; opacity: .8;">
+            <span class="glyphicon glyphicon-remove" style="font-size: 11pt; color : crimson; cursor: pointer;" (click)="previewUrl = null"></span></div>
+       
+          <img [src]="previewUrl" height="300" width="400"/>
+        </div>
     </form>
       </div>
     
       <div class="modal-footer">
-        <button class="btn btn-default shadowBox" *ngIf= "prevBtn" (click)="previous()">Previous</button>
-        <button class="btn btn-primary shadowBox" (click)="prevent($event)">Next</button>
+        <button class="btn btn-primary shadowBox"  (click)="post()">Post</button>
       </div>
     </div>
 

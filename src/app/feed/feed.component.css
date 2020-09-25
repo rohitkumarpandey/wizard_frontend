@@ -13,7 +13,55 @@
     }
 }
 
+.userListsContainer{
+    
+    height: 100%;
+    padding : 20px 20px 80px 20px;
+}
+input{
+    color : whitesmoke;
+}
+::placeholder{
+    color: cadetblue;
+}
+.userListsBox{
+    height: 100%;
+    
+    border-radius: 5px;
 
+}
+.userListTable{
+    margin-top: 5px;
+    height: 380px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+.userListTable table{
+    max-height: 385px;
+}
+.userListTable table tr:hover{
+    background-color: black;
+}
+.userListTable > table tr td{
+    height: 20px!important;
+    vertical-align: middle!important;
+    outline: none;
+}
+.userListTable table tr td:nth-child(1){
+   width: 50px;
+   
+
+}
+.userListTable table tr td:nth-child(2) p:nth-child(1) {
+    color : white!important;
+    margin-bottom: 0;
+}
+.userListTable table tr td:nth-child(2) p:nth-child(2){
+    color: aliceblue!important;
+    font-size: 8.5pt;
+}
 
 .feed{
     background-color: #1F2833;
@@ -216,16 +264,7 @@ textarea{
 }
 
 
-table { 
-    width: 100%;
-    border: none;
-    border-color: transparent;
-    height: 300px;
-    
-}
-table tr, table tr td{
-    border: none;
-}
+
 .modal-header{
     background-color: #1F2833;
 }
@@ -251,27 +290,11 @@ table tr, table tr td{
     background-color: transparent;
     color: white;
 }
-table tr td div{
-    text-align: center;
-    background-color: darkslategray;
-    color: white;
-    width: 100%;
-   line-height: 70px;
-   border-radius: 5px;
-   border-width: .2px;
-   border-style: solid;
-   cursor: pointer;
-  
-}
-table tr td div:hover{
-    background-color: slategray;
-    border: rgb(89, 102, 114);
-    border-style: solid;
-    border-width: 1px 0 0 1px;
-}
+
+
 
 .postingAs{
-    margin-top: -20px;
+    width: 40%;
 }
 
 .postPhoto{

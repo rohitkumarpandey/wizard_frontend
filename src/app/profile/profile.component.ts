@@ -3,6 +3,7 @@ import { ProfileService } from './profile.service';
 import { AuthService } from '../services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgxImageCompressService } from 'ngx-image-compress';
 declare var $ : any;
 
 @Component({
@@ -19,12 +20,13 @@ export class ProfileComponent implements OnInit {
   fileDate : File = null;
   previewUrl : any = null;
   profilePicture : String;
-  constructor(private service : ProfileService, private fb : FormBuilder, private authService : AuthService, private spinner : NgxSpinnerService) { 
-   this.username = this.authService.getUsername();
+  constructor(private service : ProfileService, private fb : FormBuilder, private authService : AuthService, private spinner : NgxSpinnerService,
+    private imageCompress : NgxImageCompressService ) { 
+
    this.emailid = this.authService.getUserEmail();
 
    this.profileImageForm = this.fb.group({
-     profilePic : ['', [Validators.required]]
+     image : ['', [Validators.required]]
    });
    
   }
@@ -38,8 +40,9 @@ export class ProfileComponent implements OnInit {
       this.service.getProfile(this.authService.getUserId())
       .then((res)=>{
         if(res.success){
+          this.username = res.user.username;
             this.about = res.user.about;
-            this.profilePicture = res.user.profilePic;
+            this.profilePicture = res.user.image;
             this.myPosts = this.myPosts.concat(res.user.posts);
         }
       })
@@ -47,30 +50,39 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadImage(){
-    $('#uploadProfile').click();
+   // $('#uploadProfile').click();
+   this.imageCompress.uploadFile().then(({image, orientation})=>{
+     
+     this.imageCompress.compressFile(image, orientation, 50, 50).then(
+      result => {
+        this.previewUrl = result;
+      }
+    );
+   });
+ 
   }
 
-  fileProgress(fileInput : any){
-    this.fileDate = <File>fileInput.target.files[0];
-    this.preview();
-  }
+  // fileProgress(fileInput : any){
+  //   this.fileDate = <File>fileInput.target.files[0];
+  //   this.preview();
+  // }
 
-  preview(){
-    var mimetype = this.fileDate.type;
-    if(mimetype.match(/image\/*/) == null){
-      return;
-    }
+  // preview(){
+  //   var mimetype = this.fileDate.type;
+  //   if(mimetype.match(/image\/*/) == null){
+  //     return;
+  //   }
 
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileDate);
-    reader.onload = (_event)=>{
-      this.previewUrl = reader.result;
-    }
-  }
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(this.fileDate);
+  //   reader.onload = (_event)=>{
+  //     this.previewUrl = reader.result;
+  //   }
+  // }
 
   uploadProfilePic(){
     this.spinner.show();
-    this.profileImageForm.value.profilePic = this.previewUrl; 
+    this.profileImageForm.value.image = this.previewUrl; 
    // this.service.temp(this.authService.getUserId(), this.profileImageForm.value);
     this.service.uploadProfile(this.authService.getUserId(), this.profileImageForm.value)
     .then((res)=>{
