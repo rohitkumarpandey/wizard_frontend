@@ -1,11 +1,11 @@
-// This file can be replaced during build by using the `fileReplacements` array.
+  // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
-  pingServerUrl : 'https://wizard-backend.herokuapp.com/pingServer',
-  userAPIUrl : 'https://wizard-backend.herokuapp.com/user'
+  pingServerUrl : 'http://localhost:4000/pingServer',
+  userAPIUrl : 'http://localhost:4000/user'
   // userAPIUrl : 'http://localhost:4000/user' 
 };
 
