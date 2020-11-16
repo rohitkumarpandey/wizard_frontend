@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  pingServerUrl : 'http://localhost:4200/pingServer',
-  userAPIUrl : 'http://localhost:4200/user'
+  // pingServerUrl : 'http://localhost:4200/pingServer',
+  // userAPIUrl : 'http://localhost:4200/user'
   // userAPIUrl : 'http://localhost:4000/user' 
 };
 
