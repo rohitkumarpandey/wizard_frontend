@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  pingServerUrl : 'https://wizard-backend.herokuapp.com/pingServer',
-  userAPIUrl : 'https://wizard-backend.herokuapp.com/user'
+  // pingServerUrl : 'http://localhost:4000/pingServer',
+  // userAPIUrl : 'http://localhost:4000/user'
   // userAPIUrl : 'http://localhost:4000/user' 
 };
 
