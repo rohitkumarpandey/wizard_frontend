@@ -16,16 +16,16 @@ export class AppComponent {
   header;
 
   constructor(private http : HttpClient){
-    // this.header = new HttpHeaders()
-    // .set('Content-Type', 'application/json');
-    // this.http.get(environment.baseUrl+'/pingserver', {
-    //   headers : this.header
-    // })
-    // .toPromise()
-    // .then((res)=>{
-    //   console.log(res);
-    // })
-    // .catch()
+    this.header = new HttpHeaders()
+    .set('Content-Type', 'application/json');
+    this.http.get(environment.pingServerUrl, {
+      headers : this.header
+    })
+    .toPromise()
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch()
 
   }
 
